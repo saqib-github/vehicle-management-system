@@ -1,0 +1,8 @@
+@font-face {
+  font-family: ChokoMilky;
+  src: url(../../assets/fonts/ChokoMilky.ttf);
+}
+.admin-stickable {
+  font-family: ChokoMilky !important;
+  font-size: 70px !important;
+}
