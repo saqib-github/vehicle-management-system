@@ -1,11 +1,9 @@
 import React from "react";
 const Home = React.lazy(() => import("../pages/home/index"));
-const Login = React.lazy(() =>
-  import("../pages/login/index")
-);
-const SignUp = React.lazy(() =>
-  import("../pages/signup/index")
-);
+const Login = React.lazy(() => import("../pages/login/index"));
+const SignUp = React.lazy(() => import("../pages/signup/index"));
+const Dashboard = React.lazy(() => import("../pages/dashboard/index"));
+
 const Component404 = React.lazy(() => import("../layouts/c404/Component404"));
 
 const routes = [
@@ -17,13 +15,19 @@ const routes = [
     path: "/login",
     exact: true,
     name: "Login",
-    component: Login,
+    component: Login
   },
   {
     path: "/signup",
     exact: true,
     name: "SignUp",
-    component: SignUp,
+    component: SignUp
   },
+  {
+    path: "/dashboard",
+    exact: true,
+    name: "Dashboard",
+    component: Dashboard
+  }
 ];
 export default routes;

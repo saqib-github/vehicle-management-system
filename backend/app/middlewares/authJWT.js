@@ -42,3 +42,22 @@ exports.duplicateEmail = (req, res, next) => {
       }
     });
 };
+
+exports.authenticateUserUsingToken = (req, res) => {
+  let token = req.headers["x-access-token"];
+  // console.log("headers", req.headers);
+
+  if (!token) {
+    return res.status(403).send({ message: "No token provided!" });
+  }
+
+  jwt.verify(token, config.secret, (err, decoded) => {
+    if (err) {
+      return res
+        .status(401)
+        .send({ message: "Unauthorized!", isAuthenticated: false });
+    }
+    res.status(200).json({ message: "Success", isAuthenticated: true });
+    // req.userId = decoded.id;
+  });
+};

@@ -17,14 +17,13 @@ exports.signup = async (req, res) => {
     email: req.body.email,
     password: bcrypt.hashSync(password, 8)
   });
-
+  await sendEmail(email, password);
   await user.save((err, user) => {
     if (err) {
       res.status(500).send({ message: err });
       return;
     }
     if (!err) {
-      sendEmail(email, password);
       res
         .status(200)
         .json({ message: "user registered sucessfully", password });

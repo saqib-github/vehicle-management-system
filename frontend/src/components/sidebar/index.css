@@ -1,0 +1,34 @@
+.side-menu-items {
+    /* margin-top: 20px; */
+    padding-right: 20px;
+    height: 50px;
+    align-content: center;
+    align-items: center;
+    border-radius: 15px;
+  }
+  .side-menu-items:hover {
+    background: #FF007C;
+    color: white;
+    cursor: pointer;
+  }
+  
+  /* Desktop View  */
+  @media screen and (min-width: 480px) {
+    .side-menu-text{
+        margin-right: 10px;
+    }
+  }
+  /* tablet View  */
+  @media screen and (max-width: 768px) {
+    .side-menu-text{
+        margin-right: -70px;
+    }
+  }
+  
+  /* Mobile View  */
+  @media screen and (max-width: 480px) {
+    .side-menu-text{
+      margin-right: -80px;
+  }
+  }
+  

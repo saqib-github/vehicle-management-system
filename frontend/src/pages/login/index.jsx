@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import "./index.css";
 import { Col, Container, Form, Row, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { ValidateEmail } from "../../components/helpers";
 import Swal from "sweetalert2";
 import axios from "axios";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [validEmail, setValidEmail] = useState(false);
   const [loginData, setLoginData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: ""
   });
   const login = () => {
     const { email, password } = loginData;
@@ -19,14 +21,37 @@ const Login = () => {
     if (!validEmail && email && password) {
       Swal.fire("Opps", "Please Enter Valid Email", "error");
     }
-    if(!password && email && validEmail){
+    if (!password && email && validEmail) {
       Swal.fire("Opps", "Please Enter Password", "error");
     }
-    if(!password && !email){
+    if (!password && !email) {
       Swal.fire("Opps", "Please Enter Email and Password", "error");
     }
     if (validEmail && email && password) {
-      console.log(loginData, "loginData");
+      if (loginData.email && loginData.password) {
+        let url = `${process.env.REACT_APP_API_URL}/api/auth/signin`;
+        let data = {
+          email,
+          password
+        };
+
+        axios
+          .post(url, data)
+          .then((result) => {
+            console.log("result", result.data);
+            if (result.status === 200) {
+              localStorage.setItem("accessToken", result.data.accessToken);
+              navigate("/dashboard");
+            }
+          })
+          .catch((error) => {
+            console.log("error", error.response);
+          });
+
+        console.log("login data", loginData);
+      } else {
+        Swal.fire("Sorry", "please enter your credentials", "error");
+      }
     }
   };
   return (

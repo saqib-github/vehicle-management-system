@@ -18,8 +18,7 @@ exports.sendEmail = async (email, password) => {
   return await sgMail
     .send(msg)
     .then(response => {
-      console.log(response[0].statusCode);
-      console.log(response[0].headers);
+      console.log("Email sent successfully");
       return true;
     })
     .catch(error => {

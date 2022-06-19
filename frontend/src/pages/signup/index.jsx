@@ -17,6 +17,24 @@ const SignUp = () => {
     }
     if (validEmail && email) {
       console.log(signUpData, "signUpData");
+      const url = `${process.env.REACT_APP_API_URL}/api/auth/signup`;
+      axios
+        .post(url, { email })
+        .then((res) => {
+          if (res.status === 200) {
+            Swal.fire(
+              "Congratulations",
+              "Please check your email for password",
+              "success"
+            );
+            setSignUpData({ email: "" });
+          }
+        })
+        .catch((error) => {
+          console.log(error.response);
+          const { message } = error.response.data;
+          Swal.fire("Opps", `${message}`, "error");
+        });
     }
   };
 

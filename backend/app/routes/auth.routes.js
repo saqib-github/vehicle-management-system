@@ -8,6 +8,6 @@ const router = express.Router();
 
 router.post("/signup", [middlewares.duplicateEmail], controller.signup);
 router.post("/signin", controller.signin);
-// router.post("/authenticate-user", middlewares.authenticateAdminUsingToken);
+router.post("/authenticate-user", middlewares.authenticateUserUsingToken);
 
 module.exports = router;
