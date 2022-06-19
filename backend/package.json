@@ -10,9 +10,13 @@
   "author": "Saqib Javed",
   "license": "ISC",
   "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "generate-password": "^1.7.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.4.0",
     "nodemon": "^2.0.16"
   }

@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 require("dotenv/config");
 
 // importing routes here
+const authRoute = require("./app/routes/auth.routes");
 
 
 // creating app
@@ -20,6 +21,9 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to Vehicle Management Sysytem" });
 });
+
+// routes middlewares'
+app.use("/api/auth", authRoute);
 
 // importing models
 const db = require("./app/models");
@@ -43,5 +47,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is runing on ${PORT}`);
 });
-
-// routes middlewares'
