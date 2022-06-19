@@ -1,15 +1,34 @@
 import React, { useState } from "react";
 import "./index.css";
 import { Col, Container, Form, Row, Button } from "react-bootstrap";
+import { ValidateEmail } from "../../components/helpers";
 import Swal from "sweetalert2";
 import axios from "axios";
 
 const Login = () => {
-  // const history = useHistory();
+  const [validEmail, setValidEmail] = useState(false);
+  const [loginData, setLoginData] = useState({
+    email: '',
+    password: '',
+  });
   const login = () => {
-    console.log("login");
+    const { email, password } = loginData;
+    if (!validEmail && email && !password) {
+      Swal.fire("Opps", "Please Enter Valid Email", "error");
+    }
+    if (!validEmail && email && password) {
+      Swal.fire("Opps", "Please Enter Valid Email", "error");
+    }
+    if(!password && email && validEmail){
+      Swal.fire("Opps", "Please Enter Password", "error");
+    }
+    if(!password && !email){
+      Swal.fire("Opps", "Please Enter Email and Password", "error");
+    }
+    if (validEmail && email && password) {
+      console.log(loginData, "loginData");
+    }
   };
-  var [loginData, setLoginData] = useState({});
   return (
     <>
       <Container fluid className="bg-gradient bg-dark">
@@ -27,18 +46,17 @@ const Login = () => {
             </h1>
           </Col>
           <Col md={4} xs={6} className="text-center">
+            {!validEmail && loginData.email && (
+              <h4 style={{ color: "red" }}>please enter valid email</h4>
+            )}
             <Form>
               <Form.Control
-                defaultValue={loginData.email}
+                defaultValue={loginData.email || ""}
                 name="email"
                 onChange={(e) => {
-                  loginData = {
-                    ...loginData,
-                    ...{
-                      email: e.target.value
-                    }
-                  };
-                  setLoginData(loginData);
+                  const email = e.target.value;
+                  setValidEmail(ValidateEmail(email));
+                  setLoginData({ ...loginData, email });
                 }}
                 type="text"
                 style={{
@@ -55,13 +73,7 @@ const Login = () => {
                 name="password"
                 type="password"
                 onChange={(e) => {
-                  loginData = {
-                    ...loginData,
-                    ...{
-                      password: e.target.value
-                    }
-                  };
-                  setLoginData(loginData);
+                  setLoginData({ ...loginData, password: e.target.value });
                 }}
                 style={{
                   height: "50px",
@@ -82,12 +94,12 @@ const Login = () => {
                   width: "200px",
                   backgroundColor: "#FF007C",
                   borderRadius: "10px",
-                  fontSize: '20px',
+                  fontSize: "20px",
                   boxShadow:
                     "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px"
                 }}
               >
-               <strong>Login</strong>
+                <strong>Login</strong>
               </Button>
             </Form>
           </Col>

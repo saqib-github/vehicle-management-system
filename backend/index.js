@@ -18,7 +18,7 @@ app.use(cors());
 
 // this will run when anyone request on app
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to starter template" });
+  res.json({ message: "Welcome to Vehicle Management Sysytem" });
 });
 
 // importing models

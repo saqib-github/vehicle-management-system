@@ -1,15 +1,25 @@
 import React, { useState } from "react";
 import "./index.css";
 import { Col, Container, Form, Row, Button } from "react-bootstrap";
+import { ValidateEmail } from "../../components/helpers";
 import Swal from "sweetalert2";
 import axios from "axios";
 
 const SignUp = () => {
-  // const history = useHistory();
+  const [signUpData, setSignUpData] = useState({
+    email: ""
+  });
+  const [validEmail, setValidEmail] = useState(false);
   const signup = () => {
-    console.log("signup");
+    const { email } = signUpData;
+    if (!validEmail || !email) {
+      Swal.fire("Opps", "Please Enter Valid Email", "error");
+    }
+    if (validEmail && email) {
+      console.log(signUpData, "signUpData");
+    }
   };
-  var [signUpData, setSignUpData] = useState({});
+
   return (
     <>
       <Container fluid className="bg-gradient bg-dark">
@@ -27,18 +37,18 @@ const SignUp = () => {
             </h1>
           </Col>
           <Col md={4} xs={6} className="text-center">
+            {!validEmail && signUpData.email && (
+              <h4 style={{ color: "red" }}>please enter valid email</h4>
+            )}
             <Form>
               <Form.Control
-                defaultValue={signUpData.email}
+                defaultValue={signUpData.email || ""}
                 name="email"
                 onChange={(e) => {
-                    signUpData = {
-                    ...signUpData,
-                    ...{
-                      email: e.target.value
-                    }
-                  };
-                  setSignUpData(signUpData);
+                  const email = e.target.value;
+                  setValidEmail(ValidateEmail(email));
+                  console.log(validEmail, "validEmail");
+                  setSignUpData({ ...signUpData, email });
                 }}
                 type="text"
                 style={{
@@ -59,7 +69,7 @@ const SignUp = () => {
                   width: "200px",
                   backgroundColor: "#FF007C",
                   borderRadius: "10px",
-                  fontSize: '20px',
+                  fontSize: "20px",
                   boxShadow:
                     "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px"
                 }}

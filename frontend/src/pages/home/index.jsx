@@ -4,7 +4,6 @@ import { Col, Container, Form, Row, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const Home = () => {
-  var [loginData, setLoginData] = useState({});
   return (
     <>
       <Container fluid className="bg-gradient bg-dark">
@@ -18,7 +17,7 @@ const Home = () => {
         >
           <Col md={12} xs={12} className="text-center">
             <h1 style={{ color: "white" }} className="mb-4 admin-stickable">
-              Vehcle Management System
+              Vehicle Management System
             </h1>
           </Col>
           <Col md={2} xs={12} className="text-center">
