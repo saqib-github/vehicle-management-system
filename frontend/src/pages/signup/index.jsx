@@ -4,14 +4,22 @@ import { Col, Container, Form, Row, Button } from "react-bootstrap";
 import { ValidateEmail } from "../../components/helpers";
 import Swal from "sweetalert2";
 import axios from "axios";
-
+const signUp = "Sign Up";
+const Loading = "Loading.....";
+const p1 = "please enter valid email";
 const SignUp = () => {
   const [signUpData, setSignUpData] = useState({
     email: ""
   });
   const [validEmail, setValidEmail] = useState(false);
+  const [loading, setLoading] = useState(false);
   const signup = () => {
     const { email } = signUpData;
+    if (typeof email !== "string") {
+      Swal.fire("Opps", "Please Enter Valid Email", "error");
+      return;
+    }
+    setLoading(true);
     if (!validEmail || !email) {
       Swal.fire("Opps", "Please Enter Valid Email", "error");
     }
@@ -21,19 +29,24 @@ const SignUp = () => {
       axios
         .post(url, { email })
         .then((res) => {
-          if (res.status === 200) {
+          console.log(res, "response");
+          const { message, password } = res.data;
+          const { status } = res;
+          if (status === 200) {
             Swal.fire(
               "Congratulations",
-              "Please check your email for password",
+              `${message}, your password is: ${password} please copy`,
               "success"
             );
             setSignUpData({ email: "" });
+            setLoading(false);
           }
         })
         .catch((error) => {
           console.log(error.response);
           const { message } = error.response.data;
           Swal.fire("Opps", `${message}`, "error");
+          setLoading(false);
         });
     }
   };
@@ -51,12 +64,12 @@ const SignUp = () => {
         >
           <Col md={12} xs={12} className="text-center">
             <h1 style={{ color: "white" }} className="mb-4 admin-stickable">
-              Sign Up
+              signUp
             </h1>
           </Col>
           <Col md={4} xs={6} className="text-center">
             {!validEmail && signUpData.email && (
-              <h4 style={{ color: "red" }}>please enter valid email</h4>
+              <h4 style={{ color: "red" }}>{p1}</h4>
             )}
             <Form>
               <Form.Control
@@ -92,7 +105,7 @@ const SignUp = () => {
                     "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px"
                 }}
               >
-                <strong>Sign Up</strong>
+                <strong>{loading ? Loading : signUp}</strong>
               </Button>
             </Form>
           </Col>

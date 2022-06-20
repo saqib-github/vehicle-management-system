@@ -61,3 +61,20 @@ exports.authenticateUserUsingToken = (req, res) => {
     // req.userId = decoded.id;
   });
 };
+exports.authenticateToken = (req, res, next) => {
+  let token = req.headers["x-access-token"];
+  // console.log("headers", req.headers);
+
+  if (!token) {
+    return res.status(403).send({ message: "No token provided!" });
+  }
+
+  jwt.verify(token, config.secret, (err, decoded) => {
+    if (err) {
+      return res
+        .status(401)
+        .send({ message: "Unauthorized!", isAuthenticated: false });
+    }
+    next();
+  });
+};

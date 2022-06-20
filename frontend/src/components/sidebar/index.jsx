@@ -11,6 +11,7 @@ const SideBAr = (props) => {
   
   const Logout = () => {
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("userId");
     navigate("/");
   };
   return (

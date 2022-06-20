@@ -9,6 +9,10 @@ var bcrypt = require("bcryptjs");
 
 exports.signup = async (req, res) => {
   const { email } = req.body;
+  if (typeof email !== "string") {
+    res.status(500).send({ message: "invaid email" });
+    return;
+  }
   const password = generator.generate({
     length: 10,
     numbers: true
@@ -32,8 +36,13 @@ exports.signup = async (req, res) => {
 };
 
 exports.signin = (req, res) => {
+  const { email, password } = req.body;
+  if (typeof email !== "string" || typeof password !== "string") {
+    res.status(500).send({ message: "invaid email or password" });
+    return;
+  }
   User.findOne({
-    email: req.body.email
+    email: email
   }).exec((err, user) => {
     if (err) {
       res.status(500).json({ message: err });
@@ -44,7 +53,7 @@ exports.signin = (req, res) => {
       return res.status(404).json({ message: "User Not found." });
     }
 
-    var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
+    var passwordIsValid = bcrypt.compareSync(password, user.password);
 
     if (!passwordIsValid) {
       return res.status(401).send({
@@ -58,7 +67,8 @@ exports.signin = (req, res) => {
     });
 
     res.status(200).send({
-      accessToken: token
+      accessToken: token,
+      userId: user._id
     });
   });
 };

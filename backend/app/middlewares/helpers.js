@@ -1,3 +1,5 @@
+const db = require("../models");
+const Car = db.cars;
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 exports.ValidateEmail = mail => {
@@ -24,5 +26,19 @@ exports.sendEmail = async (email, password) => {
     .catch(error => {
       console.error(error);
       return false;
+    });
+};
+
+// creating cars and returning _id
+exports.createCar = async req => {
+  const { name, model, price, color, make, registeration } = req.body;
+  const car = new Car({ name, model, price, color, make, registeration });
+  return await car
+    .save()
+    .then(result => {
+      return result._id;
+    })
+    .catch(error => {
+      return "";
     });
 };

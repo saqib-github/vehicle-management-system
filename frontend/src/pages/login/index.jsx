@@ -27,7 +27,16 @@ const Login = () => {
     if (!password && !email) {
       Swal.fire("Opps", "Please Enter Email and Password", "error");
     }
-    if (validEmail && email && password) {
+    if(typeof email !== "string" || typeof password !== "string"){
+      Swal.fire("Opps", "Invalid Email and Password", "error");
+    }
+    if (
+      validEmail &&
+      email &&
+      password &&
+      typeof email === "string" &&
+      typeof password === "string"
+    ) {
       if (loginData.email && loginData.password) {
         let url = `${process.env.REACT_APP_API_URL}/api/auth/signin`;
         let data = {
@@ -41,7 +50,9 @@ const Login = () => {
             console.log("result", result.data);
             if (result.status === 200) {
               localStorage.setItem("accessToken", result.data.accessToken);
+              localStorage.setItem("userId", result.data.userId);
               navigate("/dashboard");
+              window.location.reload();
             }
           })
           .catch((error) => {
