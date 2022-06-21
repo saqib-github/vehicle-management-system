@@ -71,7 +71,8 @@ exports.update = (req, res) => {
 
 // getting all cars
 exports.all = (req, res) => {
-  User.find({})
+  const { userId } = req.params;
+  User.find({ _id: userId })
     .populate({ path: "vehicles" })
     .then(result => {
       res.status(200).json({ message: "Success", data: result });

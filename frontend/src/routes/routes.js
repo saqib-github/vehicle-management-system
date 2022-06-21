@@ -3,6 +3,7 @@ const Home = React.lazy(() => import("../pages/home/index"));
 const Login = React.lazy(() => import("../pages/login/index"));
 const SignUp = React.lazy(() => import("../pages/signup/index"));
 const Dashboard = React.lazy(() => import("../pages/dashboard/index"));
+const CreateForm = React.lazy(() => import("../pages/create/index"));
 
 const Component404 = React.lazy(() => import("../layouts/c404/Component404"));
 
@@ -28,6 +29,12 @@ const routes = [
     exact: true,
     name: "Dashboard",
     component: Dashboard
+  },
+  {
+    path: "/dashboard/create",
+    exact: true,
+    name: "CreateForm",
+    component: CreateForm
   }
 ];
 export default routes;

@@ -38,12 +38,20 @@ const SideBAr = (props) => {
       </Offcanvas.Header>
       <Offcanvas.Body>
         <Container>
-          <Row className="side-menu-items mt-3">
+          <Row className="side-menu-items mt-3" onClick={() => navigate('/dashboard')}>
             <Col md={2} xs={6}>
               <UsersIcon />
             </Col>
             <Col md={10} xs={6}>
               <strong className="side-menu-text"> Vehicles</strong>
+            </Col>
+          </Row>{" "}
+          <Row className="side-menu-items mt-3" onClick={() => navigate('/dashboard/create')}>
+            <Col md={2} xs={6}>
+              <UsersIcon />
+            </Col>
+            <Col md={10} xs={6}>
+              <strong className="side-menu-text"> Create</strong>
             </Col>
           </Row>{" "}
           {/* .................... */}

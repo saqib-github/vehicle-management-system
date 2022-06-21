@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { AgGridReact } from "ag-grid-react";
 import { Button } from "react-bootstrap";
+import axios from "axios";
 
-const index = () => {
+const Index = () => {
+  const [carData, setCarData] = useState([]);
+  useEffect(() => {
+    const id = localStorage.getItem('userId');
+    let url = `${process.env.REACT_APP_API_URL}/api/car/all/${id}`;
+    const headers = {
+      "x-access-token": `${localStorage.getItem("accessToken")}`
+    };
+    axios
+      .get(url, { headers: headers })
+      .then((res) => {
+        console.log(res, "responseejw");
+        const { vehicles } = res.data.data[0];
+        setCarData(vehicles);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  }, []);
   const rowData = [
     {
       name: "Toyota",
@@ -10,7 +29,7 @@ const index = () => {
       price: 35000,
       color: "red",
       registration: "16/06/2022",
-      make: "Ford",
+      make: "Ford"
     },
     {
       name: "Toyota",
@@ -18,7 +37,7 @@ const index = () => {
       price: 35000,
       color: "red",
       registration: "16/06/2022",
-      make: "Ford",
+      make: "Ford"
     },
     {
       name: "Toyota",
@@ -26,7 +45,7 @@ const index = () => {
       price: 35000,
       color: "red",
       registration: "16/06/2022",
-      make: "Ford",
+      make: "Ford"
     },
     {
       name: "Toyota",
@@ -34,7 +53,7 @@ const index = () => {
       price: 35000,
       color: "red",
       registration: "16/06/2022",
-      make: "Ford",
+      make: "Ford"
     },
     {
       name: "Toyota",
@@ -42,7 +61,7 @@ const index = () => {
       price: 35000,
       color: "red",
       registration: "16/06/2022",
-      make: "Ford",
+      make: "Ford"
     },
     {
       name: "Aoyota",
@@ -50,8 +69,8 @@ const index = () => {
       price: 35000,
       color: "red",
       registration: "16/06/2022",
-      make: "Ford",
-    },
+      make: "Ford"
+    }
   ];
 
   const columnDefs = [
@@ -59,7 +78,7 @@ const index = () => {
       field: "name",
       width: "auto",
       filter: "agTextColumnFilter",
-      menuTabs: [],
+      menuTabs: []
     },
     { field: "model", width: "auto" },
     { field: "price", width: "auto" },
@@ -68,6 +87,7 @@ const index = () => {
     { field: "registration", width: "auto" },
     {
       field: "edit",
+      pinned: "right",
       width: "auto",
       filter: false,
       cellRendererFramework: (params) => {
@@ -80,7 +100,7 @@ const index = () => {
               width="20"
               height="20"
               fill="currentColor"
-              class="bi bi-pencil-square"
+              className="bi bi-pencil-square"
               viewBox="0 0 16 16"
             >
               <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
@@ -91,10 +111,11 @@ const index = () => {
             </svg>
           </div>
         );
-      },
+      }
     },
     {
       field: "delete",
+      pinned: "right",
       width: "auto",
       filter: false,
       cellRendererFramework: (params) => {
@@ -114,38 +135,21 @@ const index = () => {
             </svg>
           </div>
         );
-      },
-    },
+      }
+    }
   ];
+  console.log(carData, "carData");
   return (
     <div>
       <h1 className="mb-3 text-center">
         <strong>Vehicles</strong>
       </h1>
-      <div className=" d-flex w-100">
-        <Button
-          // onClick={login}
-          className="mt-3 float-right"
-          style={{
-            height: "50px",
-            border: "none",
-            width: "200px",
-            backgroundColor: "#FF007C",
-            borderRadius: "10px",
-            fontSize: "20px",
-            boxShadow:
-              "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px",
-          }}
-        >
-          <strong>Create</strong>
-        </Button>
-      </div>
       <div
         className="ag-theme-alpine text-center"
         style={{ height: 400, width: "100%" }}
       >
         <AgGridReact
-          rowData={rowData}
+          rowData={(carData && carData) || []}
           width="100%"
           animateRows={true}
           columnDefs={columnDefs}
@@ -154,7 +158,7 @@ const index = () => {
             filter: true,
             width: 185,
             resizable: true,
-            floatingFilter: true,
+            floatingFilter: true
           }}
         />
       </div>
@@ -162,4 +166,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

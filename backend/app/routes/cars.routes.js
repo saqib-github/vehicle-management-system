@@ -12,6 +12,6 @@ router.delete(
   [middlewares.authenticateToken],
   controller.delete
 );
-router.get("/all", [middlewares.authenticateToken], controller.all);
+router.get("/all/:userId", [middlewares.authenticateToken], controller.all);
 
 module.exports = router;

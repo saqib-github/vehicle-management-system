@@ -7,6 +7,7 @@ require("dotenv/config");
 
 // importing routes here
 const authRoute = require("./app/routes/auth.routes");
+const carRoute = require("./app/routes/cars.routes")
 
 
 // creating app
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 
 // routes middlewares'
 app.use("/api/auth", authRoute);
+app.use("/api/car", carRoute);
 
 // importing models
 const db = require("./app/models");

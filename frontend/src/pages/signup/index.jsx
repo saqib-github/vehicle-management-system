@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./index.css";
-import { Col, Container, Form, Row, Button } from "react-bootstrap";
+import { Col, Container, Form, Row, Button, Spinner } from "react-bootstrap";
 import { ValidateEmail } from "../../components/helpers";
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -105,7 +105,16 @@ const SignUp = () => {
                     "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px"
                 }}
               >
-                <strong>{loading ? Loading : signUp}</strong>
+                {loading && (
+                  <Spinner
+                    as="span"
+                    animation="border"
+                    size="md"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                )}
+                <strong>{loading ? "" : signUp}</strong>
               </Button>
             </Form>
           </Col>
