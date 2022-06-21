@@ -1,5 +1,6 @@
 import React from "react";
 import { AgGridReact } from "ag-grid-react";
+import { Button } from "react-bootstrap";
 
 const index = () => {
   const rowData = [
@@ -9,7 +10,7 @@ const index = () => {
       price: 35000,
       color: "red",
       registration: "16/06/2022",
-      make: "Ford"
+      make: "Ford",
     },
     {
       name: "Toyota",
@@ -17,7 +18,7 @@ const index = () => {
       price: 35000,
       color: "red",
       registration: "16/06/2022",
-      make: "Ford"
+      make: "Ford",
     },
     {
       name: "Toyota",
@@ -25,7 +26,7 @@ const index = () => {
       price: 35000,
       color: "red",
       registration: "16/06/2022",
-      make: "Ford"
+      make: "Ford",
     },
     {
       name: "Toyota",
@@ -33,7 +34,7 @@ const index = () => {
       price: 35000,
       color: "red",
       registration: "16/06/2022",
-      make: "Ford"
+      make: "Ford",
     },
     {
       name: "Toyota",
@@ -41,7 +42,7 @@ const index = () => {
       price: 35000,
       color: "red",
       registration: "16/06/2022",
-      make: "Ford"
+      make: "Ford",
     },
     {
       name: "Aoyota",
@@ -49,8 +50,8 @@ const index = () => {
       price: 35000,
       color: "red",
       registration: "16/06/2022",
-      make: "Ford"
-    }
+      make: "Ford",
+    },
   ];
 
   const columnDefs = [
@@ -58,25 +59,26 @@ const index = () => {
       field: "name",
       width: "auto",
       filter: "agTextColumnFilter",
-      menuTabs: []
+      menuTabs: [],
     },
-    { field: "model" },
-    { field: "price" },
-    { field: "color" },
-    { field: "make" },
-    { field: "registration" },
+    { field: "model", width: "auto" },
+    { field: "price", width: "auto" },
+    { field: "color", width: "auto" },
+    { field: "make", width: "auto" },
+    { field: "registration", width: "auto" },
     {
       field: "edit",
+      width: "auto",
       filter: false,
-      cellRendererFramework: params => {
+      cellRendererFramework: (params) => {
         const { data: rowData } = params;
         console.log(rowData, "row data");
         return (
           <div className="font-icon-wrapper" style={{ cursor: "pointer" }}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
+              width="20"
+              height="20"
               fill="currentColor"
               class="bi bi-pencil-square"
               viewBox="0 0 16 16"
@@ -89,20 +91,21 @@ const index = () => {
             </svg>
           </div>
         );
-      }
+      },
     },
     {
       field: "delete",
+      width: "auto",
       filter: false,
-      cellRendererFramework: params => {
+      cellRendererFramework: (params) => {
         const { data: rowData } = params;
         console.log(rowData, "row data");
         return (
           <div className="font-icon-wrapper" style={{ cursor: "pointer" }}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
+              width="20"
+              height="20"
               fill="currentColor"
               className="bi bi-trash3"
               viewBox="0 0 16 16"
@@ -111,20 +114,39 @@ const index = () => {
             </svg>
           </div>
         );
-      }
-    }
+      },
+    },
   ];
   return (
-    <div className="text-center">
-      <h1 className="mb-3">
+    <div>
+      <h1 className="mb-3 text-center">
         <strong>Vehicles</strong>
       </h1>
+      <div className=" d-flex w-100">
+        <Button
+          // onClick={login}
+          className="mt-3 float-right"
+          style={{
+            height: "50px",
+            border: "none",
+            width: "200px",
+            backgroundColor: "#FF007C",
+            borderRadius: "10px",
+            fontSize: "20px",
+            boxShadow:
+              "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px",
+          }}
+        >
+          <strong>Create</strong>
+        </Button>
+      </div>
       <div
         className="ag-theme-alpine text-center"
         style={{ height: 400, width: "100%" }}
       >
         <AgGridReact
           rowData={rowData}
+          width="100%"
           animateRows={true}
           columnDefs={columnDefs}
           defaultColDef={{
@@ -132,7 +154,7 @@ const index = () => {
             filter: true,
             width: 185,
             resizable: true,
-            floatingFilter: true
+            floatingFilter: true,
           }}
         />
       </div>

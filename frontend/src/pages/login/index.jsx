@@ -11,7 +11,7 @@ const Login = () => {
   const [validEmail, setValidEmail] = useState(false);
   const [loginData, setLoginData] = useState({
     email: "",
-    password: ""
+    password: "",
   });
   const login = () => {
     const { email, password } = loginData;
@@ -27,7 +27,7 @@ const Login = () => {
     if (!password && !email) {
       Swal.fire("Opps", "Please Enter Email and Password", "error");
     }
-    if(typeof email !== "string" || typeof password !== "string"){
+    if (typeof email !== "string" || typeof password !== "string") {
       Swal.fire("Opps", "Invalid Email and Password", "error");
     }
     if (
@@ -41,7 +41,7 @@ const Login = () => {
         let url = `${process.env.REACT_APP_API_URL}/api/auth/signin`;
         let data = {
           email,
-          password
+          password,
         };
 
         axios
@@ -57,6 +57,8 @@ const Login = () => {
           })
           .catch((error) => {
             console.log("error", error.response);
+            const { message } = error.response.data;
+            Swal.fire("Sorry", `${message}`, "error");
           });
 
         console.log("login data", loginData);
@@ -73,7 +75,7 @@ const Login = () => {
             justifyContent: "center",
             alignContent: "center",
             alignItems: "center",
-            height: "100vh"
+            height: "100vh",
           }}
         >
           <Col md={12} xs={12} className="text-center">
@@ -100,7 +102,7 @@ const Login = () => {
                   border: "none",
                   borderRadius: "10px",
                   boxShadow:
-                    "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px"
+                    "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px",
                 }}
                 placeholder="Enter your email"
               ></Form.Control>
@@ -116,7 +118,7 @@ const Login = () => {
                   border: "none",
                   borderRadius: "10px",
                   boxShadow:
-                    "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px"
+                    "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px",
                 }}
                 className="mt-3"
                 placeholder="Enter your password"
@@ -132,7 +134,7 @@ const Login = () => {
                   borderRadius: "10px",
                   fontSize: "20px",
                   boxShadow:
-                    "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px"
+                    "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px",
                 }}
               >
                 <strong>Login</strong>
