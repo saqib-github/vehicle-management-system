@@ -37,13 +37,20 @@ For the Backend I used follwing packages
     "nodemon": "^2.0.16"  
     
     
- For starting project please these steps
- Step 1
- git clone https://github.com/saqib-github/vehicle-management-system.git
- Step 2
- go to frontend and backend folder run command "npm install" both
- Step 3
- go to frontend run "npm start" got to backend run "npm start"
+ For starting project please these steps <br />
+ 
+ Step 1 <br />
+ 
+ git clone https://github.com/saqib-github/vehicle-management-system.git <br />
+ 
+ Step 2 <br />
+ 
+ go to frontend and backend folder run command "npm install" both <br />
+ 
+ Step 3 <br />
+ 
+ go to frontend run "npm start" got to backend run "npm start" <br />
+ 
  
 Now the project should have started
  
